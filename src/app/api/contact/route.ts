@@ -81,7 +81,7 @@ export async function POST(req: Request) {
       from: "Lucky Digital Tech <onboarding@resend.dev>", // Changed from onboarding
       to: "murithiv23@gmail.com",
       subject: `New Contact Message from ${sanitizedName}`,
-      reply_to: email,
+      replyTo: email,
       html: `
         <h3>New Message from ${sanitizedName}</h3>
         <p><strong>Email:</strong> ${email}</p>

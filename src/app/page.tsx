@@ -38,7 +38,7 @@ export default function Home() {
     },
   ];
 
-  const renderStars = (rating) => {
+  const renderStars = (rating : number) => {
     return Array.from({ length: 5 }).map((_, i) => (
       <span key={i} className={i < rating ? "text-yellow-400" : "text-gray-600"}>
         <i className="fa-solid fa-star"></i>
@@ -46,48 +46,49 @@ export default function Home() {
     ));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setMessage("");
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setMessage("");
+  setMessageType("");
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+  const form = e.currentTarget;
 
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-      honeypot: formData.get("honeypot"),
-    };
+  const formData = new FormData(form);
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-
-      if (res.ok && result.success) {
-        setMessage("Message sent successfully!");
-        setMessageType("success");
-        form.reset();
-      } else {
-        setMessage(result.error || "Failed to send message.");
-        setMessageType("error");
-      }
-    } catch (err) {
-      setMessage("Network error. Try again.");
-      setMessageType("error");
-    } finally {
-      setIsLoading(false);
-    }
+  const data = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    message: formData.get("message"),
+    honeypot: formData.get("honeypot"),
   };
 
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (res.ok && result.success) {
+      setMessage("Message sent successfully!");
+      setMessageType("success");
+      form.reset();
+    } else {
+      setMessage(result.error || "Failed to send message.");
+      setMessageType("error");
+    }
+  } catch (error) {
+    setMessage("Network error. Try again.");
+    setMessageType("error");
+  } finally {
+    setIsLoading(false);
+  }
+};
   return (
     <>
       <Navbar />
