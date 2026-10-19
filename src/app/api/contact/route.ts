@@ -1,7 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+}
 
 // Simple in-memory rate limiting (consider using Redis in production)
 const requestCounts: Record<string, number[]> = {};
@@ -123,7 +127,8 @@ export async function POST(req: Request) {
     }
 
     // Check if API key exists
-    if (!process.env.RESEND_API_KEY) {
+    const resend = getResendClient();
+    if (!resend) {
       console.error("RESEND_API_KEY not found in environment");
       return NextResponse.json({ error: "Email service not configured" }, { status: 500 });
     }
