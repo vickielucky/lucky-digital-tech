@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Chatbot (AI assistant)
+
+This project includes a simple AI chatbot UI and an API proxy that forwards requests to OpenAI's Chat Completions API.
+
+- Add your OpenAI API key to `.env.local` as shown in the example file `.env.local.example`.
+- Start the dev server with `npm run dev` and open the site. Use the chat button at the bottom-right to open the assistant.
+
+Environment variables
+
+Create a `.env.local` file at the project root with the following value (do not commit your real key):
+
+```
+OPENAI_API_KEY=sk-REPLACE_WITH_YOUR_KEY
+```
+
+See [src/app/api/chat/route.ts](src/app/api/chat/route.ts#L1) for the server proxy and [src/components/Chatbot.tsx](src/components/Chatbot.tsx#L1) for the client UI.

@@ -28,8 +28,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -47,7 +46,7 @@ export default function Navbar() {
         element.scrollIntoView({ behavior: "smooth" });
       }
     }}
-    className="relative group transition cursor-pointer"
+    className="relative group transition cursor-pointer text-sm font-semibold"
   >
     <span
       className={`${
@@ -58,8 +57,13 @@ export default function Navbar() {
     </span>
 
     <span
-      className={`absolute left-0 -bottom-1 h-[2px] bg-pink-500 transition-all duration-300 ${
-        active === id ? "w-full" : "w-0 group-hover:w-full"
+      className={`absolute left-0 -bottom-1 h-[2px] rounded-full bg-gradient-to-r from-emerald-300 to-cyan-300 transition-all duration-300 ${
+        active === id ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-90"
+      }`}
+    ></span>
+    <span
+      className={`absolute left-0 -bottom-1 h-[2px] w-full rounded-full bg-emerald-300/30 blur-sm transition-opacity duration-300 ${
+        active === id ? "opacity-100" : "opacity-0 group-hover:opacity-70"
       }`}
     ></span>
   </a>
@@ -67,25 +71,21 @@ export default function Navbar() {
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-6">
+        <div className="flex items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/Lucky Digital Tech Logo.png"
             alt="Lucky Digital Tech Logo"
-            width={90}
-            height={90}
-            className="object-contain h-10 w-auto md:h-12"
+            width={44}
+            height={44}
+            className="object-contain h-11 w-11"
           />
+          <Link href="/" className="text-white font-semibold text-lg tracking-wide">
+            Lucky Digital Tech
+          </Link>
+        </div>
 
-          <span className="text-white font-bold text-xl hidden sm:block">
-            Lucky <span className="text-primary">Digital Tech</span>
-          </span>
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10 font-medium">
+        <div className="hidden md:flex items-center justify-center gap-8">
           {navLink("home", "Home")}
           {navLink("founder", "Founder")}
           {navLink("about", "About")}
@@ -95,7 +95,12 @@ export default function Navbar() {
           {navLink("contact", "Contact")}
         </div>
 
-        {/* Hamburger Menu Button */}
+        <div className="hidden md:flex items-center gap-3">
+          <a href="#contact" className="rounded-full bg-emerald-400 px-5 py-3 text-black text-sm font-semibold hover:opacity-90 transition">
+            Get started
+          </a>
+        </div>
+
         <button
           className="md:hidden text-white"
           onClick={() => setMenuOpen(!menuOpen)}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import HeroBackground from "@/components/HeroBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -76,12 +77,13 @@ export default function RootLayout({
           content="efWDTcpUxC1M5BN_3U7zE-QCRBp5BfaY8rahbV_pOh8"
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-black text-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {children}
+        <HeroBackground />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
