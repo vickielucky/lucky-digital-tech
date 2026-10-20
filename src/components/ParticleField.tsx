@@ -1,20 +1,14 @@
 "use client";
 
-import { useCallback } from "react";
-import Particles from "react-tsparticles";
-import type { Engine, ISourceOptions } from "tsparticles-engine";
-import { loadSlim } from "tsparticles-slim";
+import Particles from "@tsparticles/react";
+import type { ISourceOptions } from "@tsparticles/engine";
 
 export default function ParticleField() {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
-  }, []);
-
   const particleOptions: ISourceOptions = {
     fullScreen: { enable: false },
     fpsLimit: 60,
     particles: {
-      number: { value: 85, density: { enable: true, area: 1200 } },
+      number: { value: 85 },
       color: { value: "#b4ffd9" },
       shape: { type: "circle" },
       opacity: {
@@ -42,7 +36,6 @@ export default function ParticleField() {
   return (
     <Particles
       id="hero-particle-field"
-      init={particlesInit}
       options={particleOptions}
       className="pointer-events-none absolute inset-0"
     />
