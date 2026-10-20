@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import HeroBackground from "@/components/HeroBackground";
 import "./globals.css";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://lucky-digital-tech.vercel.app";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -14,15 +17,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Lucky Digital Tech — Web Development & Digital Solutions",
   description:
     "Lucky Digital Tech builds fast, modern websites and systems to help businesses grow.",
   keywords: [
     "web development",
-     "graphic design",
+    "graphic design",
     "digital agency",
-     "Victor Murithi",
-      "Vickie Lucky",
+    "Victor Murithi",
+    "Vickie Lucky",
     "UI/UX",
     "systems",
     "Lucky Digital Tech",
@@ -31,11 +35,11 @@ export const metadata: Metadata = {
     title: "Lucky Digital Tech — Web Development & Digital Solutions",
     description:
       "Lucky Digital Tech builds fast, modern websites and systems to help businesses grow.",
-    url: "https://lucky-digital-tech-rs84.vercel.app",
+    url: siteUrl,
     type: "website",
   },
   alternates: {
-    canonical: "https://lucky-digital-tech-rs84.vercel.app",
+    canonical: siteUrl,
   },
 };
 
@@ -48,8 +52,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Lucky Digital Tech",
-    url: "https://lucky-digital-tech-rs84.vercel.app",
-    logo: "https://lucky-digital-tech-rs84.vercel.app/luc.png",
+    url: siteUrl,
+    logo: `${siteUrl}/luc.png`,
     sameAs: [
       "https://web.facebook.com/victor.murithi.7927",
       "https://x.com/Vickielucky3",
