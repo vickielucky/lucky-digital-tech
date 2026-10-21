@@ -1,9 +1,15 @@
 "use client";
 
-import Particles from "@tsparticles/react";
-import type { ISourceOptions } from "@tsparticles/engine";
+import { useCallback } from "react";
+import Particles, { ParticlesProvider } from "@tsparticles/react";
+import type { Engine, ISourceOptions } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
 
 export default function ParticleField() {
+  const init = useCallback(async (engine: Engine) => {
+    await loadSlim(engine);
+  }, []);
+
   const particleOptions: ISourceOptions = {
     fullScreen: { enable: false },
     fpsLimit: 60,
@@ -34,10 +40,12 @@ export default function ParticleField() {
   };
 
   return (
-    <Particles
-      id="hero-particle-field"
-      options={particleOptions}
-      className="pointer-events-none absolute inset-0"
-    />
+    <ParticlesProvider init={init}>
+      <Particles
+        id="hero-particle-field"
+        options={particleOptions}
+        className="pointer-events-none absolute inset-0"
+      />
+    </ParticlesProvider>
   );
 }
